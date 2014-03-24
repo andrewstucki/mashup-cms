@@ -1,0 +1,12 @@
+nav.navbar.repo-navbar(role='navigation')
+  .navbar-header.pull-left
+    a.navbar-brand(href="https://github.com/{{repo.owner}}/{{repo.name}}")
+      i.navbar-brand-logo.fui-github(style="font-size:22px;")
+      | {{repo.name}}
+  .navbar-header.pull-right.hidden-xs
+    ul.nav.navbar-nav
+      li
+        a(href='') Hits
+      li.stats
+        sparkline(spark-options='{"type":"bar", "barColor":"#f39c12"}', values="10,40,40,70,50,90,100,10,40,40,70,50,90,100,10,40,40,70,50,90,100,10,40,40,70,50,90,100,34,45")
+.repo-view(ui-view="")

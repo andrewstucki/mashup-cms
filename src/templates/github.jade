@@ -1,0 +1,29 @@
+a(href="https://github.com/{{account.login}}")
+  .gravatar-wrapper
+    .gravatar
+        img(src="http://www.gravatar.com/avatar/{{account.gravatarId}}?s=90&d=mm")
+    h4 {{account.login}}
+
+table.admins.table.table-striped
+  tbody
+    tr
+      th Administrators
+    tr
+      td
+        select.admin-list(ui-select2="adminOptions", ng-model="adminNames", multiple)
+          option(value="{{user.login}}", ng-repeat="user in allUsers | orderBy:'name'")
+            {{user.login}}
+
+table.repos.table.table-striped
+  tbody
+    tr.repo-header
+      th Repository
+      th.last-synced(ng-if="account.syncedAt") {{account.isSyncing ? "Syncing..." : "Last synced " + lastSynced(account.syncedAt) + "."}}
+      th.sync-button(ng-click="sync(account.login)")
+        button.btn.btn-warning.btn-xs Sync Now!
+    tr.repo(ng-repeat="repo in repos | orderBy:'name'")
+      td.repo-name
+        a(href="{{repo.url}}") {{repo.name}}
+      td.repo-description {{repo.description}}
+      td.repo-active
+        switch(is-checked="{{repo.active}}", on-toggle="repoService.toggleActivate(repo, callback, error)")

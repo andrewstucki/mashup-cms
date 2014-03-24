@@ -1,0 +1,19 @@
+.login(ng-if="!loggedIn")
+  .login-screen.row
+    .login-icon.col-xs-12.col-sm-2.col-sm-offset-1.col-xl-1
+      img(src='images/icons/key.svg', alt='Welcome to Mashup!')
+      h4
+        | Welcome to
+        small Mashup!
+    .login-form.col-xs-12.col-sm-8.col-xl-9
+      .alert.alert-error(ng-show="user.loginError")
+        button.close.fui-cross(ng-click="user.dismissLoginError()")
+        h4 Oh no!
+        p {{user.loginError}}
+      .form-group
+        input#login-name.form-control.login-field(type='text', value='', placeholder='Enter your name', ng-model='username', required='required')
+        label.login-field-icon.fui-user(for='login-name')
+      .form-group
+        input#login-pass.form-control.login-field(type='password', value='', placeholder='Password', ng-model='password', required='required')
+        label.login-field-icon.fui-lock(for='login-pass')
+      button.btn.btn-primary.btn-lg.btn-block(ng-click='login(username, password)') Login

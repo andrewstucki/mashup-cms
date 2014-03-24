@@ -1,0 +1,215 @@
+@import "animations";
+
+.slide-nav {
+  .slide-right(84px, 250ms);
+}
+
+.full-vertical-nav {
+  .swap-iconbar-color(@green-sea);
+  position:fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  height: 100%;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+  width: 84px;
+  overflow: hidden;
+  & ul {
+    overflow: auto;
+    width: 99px;
+    height: 100%;
+  }
+}
+
+.workspace {
+  overflow: auto;
+  position: relative;
+  padding: 20px;
+  padding-top: 73px;
+}
+
+.iconbar-offset-workspace {
+  padding-right: 0px;
+  padding-left: 84px;
+  padding-top: 53px;
+  padding-bottom: 0px;
+}
+
+.iconbar-offset-navbar {
+  padding-left: 84px;
+}
+
+.main-navbar {
+  z-index: 999;
+  background-color: @turquoise;
+  border-color: white;
+
+  .navbar-form {
+    .form-control {
+      border-color: transparent;
+      .placeholder(@navbar-default-form-placeholder);
+      
+      &:focus {
+        border-color: mix(@turquoise, black, 66%);
+        color: mix(@turquoise, black, 66%);
+      }
+    }
+    .input-group-btn .btn {
+      border-color: transparent;
+      color: @navbar-default-form-icon;
+    }
+    .input-group.focus {
+      .form-control,
+      .input-group-btn .btn {
+         border-color: mix(@turquoise, black, 66%);
+         color: mix(@turquoise, black, 66%);
+      }     
+    }
+  }
+
+  .navbar-brand {
+    color: white;
+    &:hover,
+    &:focus {
+      color: mix(@turquoise, black, 66%);
+    }
+  }
+
+  .navbar-text {
+    color: white;
+  }
+
+  .navbar-nav {
+    > li > a {
+      color: white;
+      padding: 15px 18px;
+
+      &:hover,
+      &:focus {
+        color: mix(@turquoise, black, 66%);
+      }
+    }
+    > .active > a {
+      &,
+      &:hover,
+      &:focus {
+        color: mix(@turquoise, black, 66%);
+      }
+    }
+  }
+
+  // Darken the responsive nav toggle
+  .navbar-toggle {    
+    &:before {
+      color: white;
+    }
+    
+    &:hover,
+    &:focus {
+      background-color: @turquoise;
+      &:before {
+        color: mix(@turquoise, black, 66%);
+      }
+    }
+  }
+
+  .navbar-collapse,
+  .navbar-form {
+    border-color: white;
+    padding-bottom: 0;
+    padding-top: 0;
+  }
+
+  // Dropdowns
+  .navbar-nav {
+    > .open > a {
+      background-color: @turquoise;
+      color: white;
+      
+      &:hover,
+      &:focus {
+        background-color: mix(@turquoise, black, 66%);
+        color: white;
+      }
+    }
+
+    @media (max-width: @grid-float-breakpoint-max) {
+      
+      > li > a {
+        &:hover,
+        &:focus {
+          color: white;
+          background-color: mix(@turquoise, black, 66%);
+        }
+      }
+      > .active > a {
+        &,
+        &:hover,
+        &:focus {
+          color: white;
+          background-color: mix(@turquoise, black, 66%);
+        }
+      }
+      
+      .open .dropdown-menu {
+        > .dropdown-header {
+          border-color: @turquoise;
+        }
+        .divider {
+          background-color: mix(@turquoise, black, 66%);
+        }
+        > li > a {
+          color: white;
+          &:hover,
+          &:focus {
+            background-color: mix(@turquoise, black, 66%);
+          }
+        }
+        > .active > a {
+          &,
+          &:hover,
+          &:focus {
+            background-color: mix(@turquoise, black, 66%);
+          }
+        }
+      }
+    }
+  }
+
+  .navbar-link {
+    color: white;
+    &:hover {
+      color: mix(@turquoise, black, 66%);
+    }
+  }
+
+}
+
+.navbar-brand-logo {
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
+@media only screen and (max-width: 767px) {
+  .iconbar-offset-workspace {
+    padding-left: 74px;
+  }
+  
+  .full-vertical-nav {
+    width: 74px;
+    & ul {
+      width: 89px;
+    }
+  }
+  .iconbar-offset-navbar {
+    padding-left: 74px;
+  }
+  
+  .main-navbar {
+    .navbar-form {
+      border: none;
+    }
+  }
+}

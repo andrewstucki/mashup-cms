@@ -1,0 +1,574 @@
+@red: #ff5a45;
+@blue: #71bbd2;
+@dark-blue: #3883a3;
+@dark-green:  #69a776;
+@light-green: #97ce7f;
+@dark-gray: #414141;
+@light-gray: #ebebeb;
+@yellow: #ddca9a;
+@black-text:  #212121;
+@trans-white: rgba(255, 255, 255, 0.5);
+@time: 0.5s;
+@time-quick: 0.25s;
+
+//width multiples of 7
+//height multiples of 8
+@calendar-width-xxs: 280px;
+@calendar-height-xxs: 240px;
+@calendar-cell-vertical-padding-xxs: 5px;
+@calendar-cell-horizontal-padding-xxs: 5px;
+
+@calendar-width-xs: 350px;
+@calendar-height-xs: 300px;
+@calendar-cell-vertical-padding-xs: 8px;
+@calendar-cell-horizontal-padding-xs: 6px;
+
+
+@calendar-width-sm: 630px;
+@calendar-height-sm: 540px;
+@calendar-cell-vertical-padding-sm: 12px;
+@calendar-cell-horizontal-padding-sm: 10px;
+
+@calendar-width: 700px;
+@calendar-height: 600px;
+@calendar-cell-vertical-padding: 16px;
+@calendar-cell-horizontal-padding: 12px;
+
+.noselect
+{
+  -webkit-user-select: none; /* Chrome/Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+ */
+}
+
+.vertical-padding(@size: 5px)
+{
+  padding-top: @size;
+  padding-bottom: @size;
+}
+
+#mini-clndr
+{
+  font-family: Helvetica, Arial;
+  margin: 0 auto;
+  width: @calendar-width;
+}
+
+#mini-clndr .clndr
+{
+  overflow: hidden;
+  border-bottom: @calendar-cell-vertical-padding solid @dark-green;
+
+  .controls
+  {
+    background-color: @dark-green;
+    color: white;
+
+    .clndr-previous-button, .clndr-next-button
+    {
+      font-size: @calendar-height / 8 - @calendar-cell-vertical-padding * 2;
+      line-height: @calendar-height / 8 - @calendar-cell-vertical-padding * 2;
+      width: @calendar-width * 0.15;
+      .vertical-padding(@calendar-cell-vertical-padding);
+      display: inline-block;
+      text-align: center;
+      cursor: pointer;
+      .noselect;
+      .transition(background-color @time);
+      &:hover
+      {
+        background-color: darken(@dark-green, 10%);
+      }
+    }
+    .month
+    {
+      font-size: @calendar-height / 8 - @calendar-cell-vertical-padding * 2;
+      line-height: @calendar-height / 8 - @calendar-cell-vertical-padding * 2;
+      width: @calendar-width * 0.70;
+      .vertical-padding(@calendar-cell-vertical-padding);
+      display: inline-block;
+      text-align: center;
+      text-transform: uppercase;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+  }
+
+  .days-container
+  {
+    position: relative;
+    width: @calendar-width;
+    height: @calendar-height * 7/8;
+    .clearfix;
+
+    .days
+    {
+      position: absolute;
+      left: 0;
+      width: @calendar-width;
+      height: @calendar-height;
+/*      .transition(left @time);*/
+      background-color: @light-gray;
+
+      .day, .empty
+      {
+        width: @calendar-width / 7;
+        display: inline-block;
+        .vertical-padding(@calendar-cell-vertical-padding);
+
+        font-size: @calendar-height / 8 - @calendar-cell-vertical-padding * 2;
+        line-height: @calendar-height / 8 - @calendar-cell-vertical-padding * 2;
+        // font-weight: 700;
+        text-align: center;
+        color: @black-text;
+
+        border-right: 1px solid @trans-white;
+        border-bottom: 1px solid @trans-white;
+
+        &.event
+        {
+          background-color: darken(@light-gray, 10%);
+          .transition(background-color @time);
+          cursor: pointer;
+          &:hover
+          {
+            background-color: darken(@light-gray, 20%);
+          }
+        }
+
+        &.adjacent-month
+        {
+          color: rgba(0, 0, 0, 0.3);
+        }
+      }
+
+      .empty
+      {
+        height: @calendar-height / 6;
+        vertical-align: bottom;
+      }
+
+      .headers
+      {
+        background-color: @light-green;
+        .vertical-padding(@calendar-cell-vertical-padding);
+        font-size: @calendar-height / 8 - @calendar-cell-vertical-padding * 2;
+        line-height: @calendar-height / 8 - @calendar-cell-vertical-padding * 2;
+
+        .day-header
+        {
+          width: @calendar-width / 7;
+          display: inline-block;
+          text-align: center;
+          color: white;
+        }
+      }
+    }
+
+    .events
+    {
+      position: absolute;
+      left: @calendar-width;
+      width: @calendar-width;
+      height: @calendar-height;
+/*      .transition(left @time);*/
+      background-color: @light-gray;
+
+      .headers
+      {
+        background-color: @light-green;
+      }
+
+      .event-header
+      {
+        width: 100%;
+        .vertical-padding(@calendar-cell-vertical-padding);
+        font-size: @calendar-height / 8 - @calendar-cell-vertical-padding * 2;
+        line-height: @calendar-height / 8 - @calendar-cell-vertical-padding * 2;
+        background-color: @light-green;
+        text-align: center;
+        color: white;
+      }
+
+      .x-button
+      {
+        position: absolute;
+        top: @calendar-cell-vertical-padding;
+        left: @calendar-cell-horizontal-padding;
+        font-size: @calendar-height / 8 - @calendar-cell-vertical-padding * 2;
+        line-height: @calendar-height / 8 - @calendar-cell-vertical-padding * 2;
+        cursor: pointer;
+        .transition(color @time-quick);
+        &:hover
+        {
+          color: white;
+        }
+      }
+
+      .events-list
+      {
+        overflow-y: scroll;
+        overflow-x: hidden;
+        height: @calendar-height * 3/4 + 6;
+
+        .event
+        {
+          text-overflow: ellipsis;
+          overflow: hidden;
+          white-space: nowrap;
+          padding-left: @calendar-cell-horizontal-padding*2;
+          border-bottom: 1px solid @trans-white;
+          .transition(background-color @time-quick);
+
+          &:hover
+          {
+            background-color: lighten(@light-gray, 4%);
+          }
+
+          a
+          {
+            position: relative;
+            // font-weight: 700;
+            letter-spacing: 1px;
+            background-color: transparent;
+            color: @black-text;
+            text-decoration: none;
+            .transition(color @time-quick);
+            &:hover
+            {
+              background-color: transparent;
+              color: @dark-green;
+            }
+          }
+        }
+      }
+    }
+
+    &.show-events
+    {
+      .days
+      {
+        left: -1 * @calendar-width;
+      }
+      .events
+      {
+        left: 0;
+      }
+    }
+  }
+}
+
+@media (max-width: (@screen-xs-min - 1)) {
+  #mini-clndr
+  {
+    width: @calendar-width-xxs;
+  }
+
+  #mini-clndr .clndr
+  {
+    .controls
+    {
+      .clndr-previous-button, .clndr-next-button
+      {
+        width: @calendar-width-xxs * 0.15;
+        font-size: @calendar-height-xxs / 8 - @calendar-cell-vertical-padding-xxs * 2;
+        line-height: @calendar-height-xxs / 8 - @calendar-cell-vertical-padding-xxs * 2;
+        .vertical-padding(@calendar-cell-vertical-padding-xxs);
+      }
+      .month
+      {
+        width: @calendar-width-xxs * 0.70;
+        font-size: @calendar-height-xxs / 8 - @calendar-cell-vertical-padding-xxs * 2;
+        line-height: @calendar-height-xxs / 8 - @calendar-cell-vertical-padding-xxs * 2;
+        .vertical-padding(@calendar-cell-vertical-padding-xxs);
+      }
+    }
+
+    .days-container
+    {
+      position: relative;
+      width: @calendar-width-xxs;
+      height: @calendar-height-xxs * 7/8;
+      .days
+      {
+        width: @calendar-width-xxs;
+        height: @calendar-height-xxs;
+
+        .day, .empty
+        {
+          width: @calendar-width-xxs / 7;
+          .vertical-padding(@calendar-cell-vertical-padding-xxs);
+          font-size: @calendar-height-xxs / 8 - @calendar-cell-vertical-padding-xxs * 2;
+          line-height: @calendar-height-xxs / 8 - @calendar-cell-vertical-padding-xxs * 2;
+        }
+
+        .empty
+        {
+          height: @calendar-height-xxs / 6;
+        }
+
+        .headers
+        {
+          .vertical-padding(@calendar-cell-vertical-padding-xxs);
+          font-size: @calendar-height-xxs / 8 - @calendar-cell-vertical-padding-xxs * 2;
+          line-height: @calendar-height-xxs / 8 - @calendar-cell-vertical-padding-xxs * 2;
+
+          .day-header
+          {
+            width: @calendar-width-xxs / 7;
+          }
+        }
+      }
+
+      .events
+      {
+        left: @calendar-width-xxs;
+        width: @calendar-width-xxs;
+        height: @calendar-height-xxs;
+
+        .event-header
+        {
+          .vertical-padding(@calendar-cell-vertical-padding-xxs);
+          font-size: @calendar-height-xxs / 8 - @calendar-cell-vertical-padding-xxs * 2;
+          line-height: @calendar-height-xxs / 8 - @calendar-cell-vertical-padding-xxs * 2;
+        }
+
+        .x-button
+        {
+          font-size: @calendar-height-xxs / 8 - @calendar-cell-vertical-padding-xxs * 2;
+          line-height: @calendar-height-xxs / 8 - @calendar-cell-vertical-padding-xxs * 2;
+          top: @calendar-cell-vertical-padding-xxs;
+          left: @calendar-cell-horizontal-padding-xxs;
+        }
+
+        .events-list
+        {
+          height: @calendar-height-xxs * 3/4 + 6;
+
+          .event
+          {
+            padding-left: @calendar-cell-horizontal-padding-xxs*2;
+          }
+        }
+      }
+
+      &.show-events
+      {
+        .days
+        {
+          left: -1 * @calendar-width-xxs;
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: @screen-xs-min) and (max-width: @screen-xs-max) {
+  #mini-clndr
+  {
+    width: @calendar-width-xs;
+  }
+
+  #mini-clndr .clndr
+  {
+    .controls
+    {
+      .clndr-previous-button, .clndr-next-button
+      {
+        width: @calendar-width-xs * 0.15;
+        font-size: @calendar-height-xs / 8 - @calendar-cell-vertical-padding-xs * 2;
+        line-height: @calendar-height-xs / 8 - @calendar-cell-vertical-padding-xs * 2;
+        .vertical-padding(@calendar-cell-vertical-padding-xs);
+      }
+      .month
+      {
+        width: @calendar-width-xs * 0.70;
+        font-size: @calendar-height-xs / 8 - @calendar-cell-vertical-padding-xs * 2;
+        line-height: @calendar-height-xs / 8 - @calendar-cell-vertical-padding-xs * 2;
+        .vertical-padding(@calendar-cell-vertical-padding-xs);
+      }
+    }
+
+    .days-container
+    {
+      position: relative;
+      width: @calendar-width-xs;
+      height: @calendar-height-xs * 7/8;
+      .days
+      {
+        width: @calendar-width-xs;
+        height: @calendar-height-xs;
+
+        .day, .empty
+        {
+          width: @calendar-width-xs / 7;
+          .vertical-padding(@calendar-cell-vertical-padding-xs);
+          font-size: @calendar-height-xs / 8 - @calendar-cell-vertical-padding-xs * 2;
+          line-height: @calendar-height-xs / 8 - @calendar-cell-vertical-padding-xs * 2;
+        }
+
+        .empty
+        {
+          height: @calendar-height-xs / 6;
+        }
+
+        .headers
+        {
+          .vertical-padding(@calendar-cell-vertical-padding-xs);
+          font-size: @calendar-height-xs / 8 - @calendar-cell-vertical-padding-xs * 2;
+          line-height: @calendar-height-xs / 8 - @calendar-cell-vertical-padding-xs * 2;
+
+          .day-header
+          {
+            width: @calendar-width-xs / 7;
+          }
+        }
+      }
+
+      .events
+      {
+        left: @calendar-width-xs;
+        width: @calendar-width-xs;
+        height: @calendar-height-xs;
+
+        .event-header
+        {
+          .vertical-padding(@calendar-cell-vertical-padding-xs);
+          font-size: @calendar-height-xs / 8 - @calendar-cell-vertical-padding-xs * 2;
+          line-height: @calendar-height-xs / 8 - @calendar-cell-vertical-padding-xs * 2;
+        }
+
+        .x-button
+        {
+          font-size: @calendar-height-xs / 8 - @calendar-cell-vertical-padding-xs * 2;
+          line-height: @calendar-height-xs / 8 - @calendar-cell-vertical-padding-xs * 2;
+          top: @calendar-cell-vertical-padding-xs;
+          left: @calendar-cell-horizontal-padding-xs;
+        }
+
+        .events-list
+        {
+          height: @calendar-height-xs * 3/4 + 6;
+
+          .event
+          {
+            padding-left: @calendar-cell-horizontal-padding-xs*2;
+          }
+        }
+      }
+
+      &.show-events
+      {
+        .days
+        {
+          left: -1 * @calendar-width-xs;
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: @screen-sm-min) and (max-width: @screen-md-max) {
+  #mini-clndr
+  {
+    width: @calendar-width-sm;
+  }
+
+  #mini-clndr .clndr
+  {
+    .controls
+    {
+      .clndr-previous-button, .clndr-next-button
+      {
+        width: @calendar-width-sm * 0.15;
+        font-size: @calendar-height-sm / 8 - @calendar-cell-vertical-padding-sm * 2;
+        line-height: @calendar-height-sm / 8 - @calendar-cell-vertical-padding-sm * 2;
+        .vertical-padding(@calendar-cell-vertical-padding-sm);
+      }
+      .month
+      {
+        width: @calendar-width-sm * 0.70;
+        font-size: @calendar-height-sm / 8 - @calendar-cell-vertical-padding-sm * 2;
+        line-height: @calendar-height-sm / 8 - @calendar-cell-vertical-padding-sm * 2;
+        .vertical-padding(@calendar-cell-vertical-padding-sm);
+      }
+    }
+
+    .days-container
+    {
+      position: relative;
+      width: @calendar-width-sm;
+      height: @calendar-height-sm * 7/8;
+      .days
+      {
+        width: @calendar-width-sm;
+        height: @calendar-height-sm;
+
+        .day, .empty
+        {
+          width: @calendar-width-sm / 7;
+          .vertical-padding(@calendar-cell-vertical-padding-sm);
+          font-size: @calendar-height-sm / 8 - @calendar-cell-vertical-padding-sm * 2;
+          line-height: @calendar-height-sm / 8 - @calendar-cell-vertical-padding-sm * 2;
+        }
+
+        .empty
+        {
+          height: @calendar-height-sm / 6;
+        }
+
+        .headers
+        {
+          .vertical-padding(@calendar-cell-vertical-padding-sm);
+          font-size: @calendar-height-sm / 8 - @calendar-cell-vertical-padding-sm * 2;
+          line-height: @calendar-height-sm / 8 - @calendar-cell-vertical-padding-sm * 2;
+
+          .day-header
+          {
+            width: @calendar-width-sm / 7;
+          }
+        }
+      }
+
+      .events
+      {
+        left: @calendar-width-sm;
+        width: @calendar-width-sm;
+        height: @calendar-height-sm;
+
+        .event-header
+        {
+          .vertical-padding(@calendar-cell-vertical-padding-sm);
+          font-size: @calendar-height-sm / 8 - @calendar-cell-vertical-padding-sm * 2;
+          line-height: @calendar-height-sm / 8 - @calendar-cell-vertical-padding-sm * 2;
+        }
+
+        .x-button
+        {
+          font-size: @calendar-height-sm / 8 - @calendar-cell-vertical-padding-sm * 2;
+          line-height: @calendar-height-sm / 8 - @calendar-cell-vertical-padding-sm * 2;
+          top: @calendar-cell-vertical-padding-sm;
+          left: @calendar-cell-horizontal-padding-sm;
+        }
+
+        .events-list
+        {
+          height: @calendar-height-sm * 3/4 + 6;
+
+          .event
+          {
+            padding-left: @calendar-cell-horizontal-padding-sm*2;
+          }
+        }
+      }
+
+      &.show-events
+      {
+        .days
+        {
+          left: -1 * @calendar-width-sm;
+        }
+      }
+    }
+  }
+}

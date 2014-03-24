@@ -1,0 +1,55 @@
+div(ng-if="loggedIn")
+  .sidebar(ui-view="sidebar")
+
+  nav.navbar.navbar-fixed-top.navbar-default.main-navbar(role="navigation", ng-class="{true:'iconbar-offset-navbar', false:''}[$state.includes('repo')]")
+    .navbar-header
+      button.navbar-toggle(type="button", data-toggle="collapse", data-target="#main-navbar-collapse")
+        span.sr-only Toggle Navigation
+      a.navbar-brand.navbar-brand-logo.fui-user(ui-sref="profile", style="padding-left: 16px;")
+      a.navbar-brand.navbar-brand-logo.fui-exit(href="", ng-click="logout()")
+    .navbar-collapse.collapse#main-navbar-collapse
+      ul.nav.navbar-nav
+        li.dropdown
+          a.dropdown-toggle(href="", data-toggle="dropdown")
+            | Accounts
+            b.caret
+          i.dropdown-arrow
+          ul.repos.dropdown-menu
+            li.repo(ng-repeat="account in allAccounts | orderBy:'login'")
+              a(ui-sref="github({account: account.login})") {{account.login}}
+            li.divider
+            li
+              a(ui-sref="add-github")
+                i.fui-plus-circle
+                | Add Account
+        li.dropdown
+          a.dropdown-toggle(href="", data-toggle="dropdown")
+            | Site
+            b.caret
+          i.dropdown-arrow
+          ul.repos.dropdown-menu
+            li.repo(ng-repeat="repo in allRepos | filter:{active:true} | orderBy:'name'")
+              a(ui-sref="repo.posts({account: repo.owner, name: repo.name})") {{repo.name}}
+        li.dropdown
+          a.dropdown-toggle(href="", data-toggle="dropdown")
+            | Users
+            b.caret
+          i.dropdown-arrow
+          ul.repos.dropdown-menu
+            li.repo(ng-repeat="user in allUsers | orderBy:'login'")
+              a(ui-sref="user({name: user.login})") {{user.login}}
+            li.divider
+            li
+              a(ui-sref="add-user")
+                i.fui-plus-circle
+                | Add User
+  
+      form.navbar-form.navbar-right(role="search")
+        .form-group
+          .input-group
+            input.form-control(type="search", placeholder="Search", onFocus="$(this).parent().addClass('focus')", onBlur="$(this).parent().removeClass('focus')")
+            span.input-group-btn
+              button.btn(type="submit")
+                span.fui-search
+
+  .workspace(ui-view, ng-class="{true:'iconbar-offset-workspace', false:''}[$state.includes('repo')]")

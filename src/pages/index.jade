@@ -1,0 +1,27 @@
+doctype html
+html(lang='en')
+  head
+    title Test
+    meta(http-equiv='Content-Type', content='text/html; charset=utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    style(type='text/css').
+      .loader {
+        position: absolute;
+        left: 0;
+        top: 0;
+        background: url('images/loader.gif') no-repeat center center;
+        height: 100%;
+        width: 100%;
+        display: block;
+      }
+      [ng\:cloak], [ng-cloak], .ng-cloak, .content { display: none; }
+    meta(rel='mashup.api_endpoint',href='http://localhost:3457')
+  body
+    .loader
+    .content
+      .ng-cloak
+        include partials/login
+        include partials/main
+    link(href='application.css', rel='stylesheet')
+    script(src='application.js')
+    
