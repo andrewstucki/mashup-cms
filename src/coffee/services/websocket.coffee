@@ -28,9 +28,7 @@ class WebsocketService
     console.log "Opened"
 
   onMessage: (message) =>
-    msg = JSON.parse message.data
-    console.log msg
-    @$rootScope.$emit "websocket:message", msg
+    @$rootScope.$emit "websocket:message", JSON.parse(message.data)
 
   onError: (message) =>
     console.log message.data

@@ -18,10 +18,10 @@ class RepoService
         if _repo.id is repo.id
           @$rootScope.allRepos[index].active = !repo.active
           repo.active = !repo.active
-      callback()
+      callback?()
     ), (response) =>
       @activationError = "There was a problem contacting the server, please try again later."
-      error()
+      error?()
 
   dismissActivationError: () =>
     @activationError = false

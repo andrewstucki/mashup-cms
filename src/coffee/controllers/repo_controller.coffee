@@ -10,7 +10,7 @@ class RepoController
   
   settings: =>
     modal = @$modal.open
-      templateUrl: "repo_settings"
+      templateUrl: "template/repo_settings.html"
       controller: "repoSettingsController"
       resolve:
         repo: =>

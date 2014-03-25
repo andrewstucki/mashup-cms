@@ -1,0 +1,14 @@
+.iconbar.full-vertical-nav.no-scrollbar-wrapper(ng-if="$state.includes('repo')")
+  ul
+    li
+      a.fui-new(ui-sref="repo.posts")
+    li
+      a.fui-photo(ui-sref="repo.photos")
+    li
+      a.fui-video(ui-sref="repo.videos")
+    li
+      a.fui-clip(ui-sref="repo.attachments")
+    li
+      a.fui-calendar(ui-sref="repo.calendar")
+    li
+      a.fui-gear.settings(ng-click="settings()")

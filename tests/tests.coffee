@@ -1,0 +1,5 @@
+require "./spec/services/user"
+require "./spec/services/repo"
+require "./spec/services/github"
+require "./spec/services/upload"
+require "./spec/services/websocket"

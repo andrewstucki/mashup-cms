@@ -33,24 +33,24 @@ config = ($stateProvider, $urlRouterProvider, $httpProvider, $sceDelegateProvide
   $stateProvider
   .state 'add-github',
     url: '/github'
-    templateUrl: 'add_github'
+    templateUrl: 'template/add_github.html'
     controller: ['$scope', 'githubService', ($scope, githubService) -> $scope.add = githubService.add]
   .state 'add-user',
     url: '/user'
-    templateUrl: 'add_user'
+    templateUrl: 'template/add_user.html'
     controller: ['$scope', 'userService', ($scope, userService) -> $scope.add = userService.add]
   .state 'profile',
     url: '/profile'
-    templateUrl: 'profile'
+    templateUrl: 'template/profile.html'
     controller: 'profileController'
   .state 'user',
     url: '/user/:name'
-    templateUrl: 'user'
+    templateUrl: 'template/user.html'
     controller: 'userController'
     resolve: userController.resolve
   .state 'github',
     url: '/github/:account'
-    templateUrl: 'github'
+    templateUrl: 'template/github.html'
     controller: 'githubController'
     resolve: githubController.resolve
   .state 'repo',
@@ -58,10 +58,10 @@ config = ($stateProvider, $urlRouterProvider, $httpProvider, $sceDelegateProvide
     abstract: true
     views:
       sidebar:
-        templateUrl: 'repo_sidebar'
+        templateUrl: 'template/repo_sidebar.html'
         controller: 'repoController'
       "":
-        templateUrl: 'repo'
+        templateUrl: 'template/repo.html'
         controller: 'repoController'
     resolve: repoController.resolve
   .state 'repo.posts',
@@ -74,22 +74,22 @@ config = ($stateProvider, $urlRouterProvider, $httpProvider, $sceDelegateProvide
       """
     ]
     url: '/posts'
-    templateUrl: 'repo_posts'
+    templateUrl: 'template/repo_posts.html'
   .state 'repo.photos',
     controller: 'imageUploadController'
     url: '/photos'
-    templateUrl: 'repo_photos'
+    templateUrl: 'template/repo_photos.html'
   .state 'repo.videos',
     controller: 'videoUploadController'
     url: '/videos'
-    templateUrl: 'repo_videos'
+    templateUrl: 'template/repo_videos.html'
   .state 'repo.attachments',
     controller: 'fileUploadController'
     url: '/attachments'
-    templateUrl: 'repo_attachments'
+    templateUrl: 'template/repo_attachments.html'
   .state 'repo.calendar',
     url: '/calendar'
-    templateUrl: 'repo_calendar'
+    templateUrl: 'template/repo_calendar.html'
 
   $sceDelegateProvider.resourceUrlWhitelist(['self', window.endpoint+'/**'])
 
